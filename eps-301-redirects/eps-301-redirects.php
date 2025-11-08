@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.80
+Version: 2.81
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
@@ -642,8 +642,8 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
       $update = array(
         'id'        => isset($_POST['id']) ? intval(wp_unslash($_POST['id'])) : false,
-        'url_from'  => isset($_POST['url_from']) ? sanitize_text_field(wp_unslash($_POST['url_from'])) : '', // remove the $root from the url if supplied, and a leading /
-        'url_to'    => isset($_POST['url_to']) ? sanitize_text_field(wp_unslash($_POST['url_to'])) : '',
+        'url_from'  => isset($_POST['url_from']) ? sanitize_text_field(urldecode(wp_unslash($_POST['url_from']))) : '', // remove the $root from the url if supplied, and a leading /
+        'url_to'    => isset($_POST['url_to']) ? sanitize_text_field(urldecode(wp_unslash($_POST['url_to']))) : '',
         'type'      => (isset($_POST['url_to']) && is_numeric($_POST['url_to']) ? 'post' : 'url'),
         'status'    => isset($_POST['status']) ? sanitize_text_field(wp_unslash($_POST['status'])) : 'disabled'
       );
