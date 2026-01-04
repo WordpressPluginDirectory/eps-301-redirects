@@ -177,6 +177,7 @@ namespace epsdonatj\UserAgent {
 			$browser = 'MSIE';
 			$version = $rv_result;
 		} elseif( $browser == 'AppleWebKit' ) {
+            if(!is_string($platform)) $platform = '';
 			if( $platform == 'Android' ) {
 				$browser = 'Android Browser';
 			} elseif( strpos($platform, 'BB') === 0 ) {
