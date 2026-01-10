@@ -21,7 +21,6 @@ class EPS_Redirects_Plugin
     'page_slug'         => 'eps_redirects',
     'page_title'        => '301 Redirects',
     'menu_location'     => 'options',
-    'page_permission'   => 'manage_options',
     'directory'         => 'eps-301-redirects'
   );
 
@@ -249,8 +248,8 @@ class EPS_Redirects_Plugin
 
     $sql = "CREATE TABLE $table_name (
           id mediumint(9) NOT NULL AUTO_INCREMENT,
-          url_from VARCHAR(256) DEFAULT '' NOT NULL,
-          url_to VARCHAR(256) DEFAULT '' NOT NULL,
+          url_from VARCHAR(1024) DEFAULT '' NOT NULL,
+          url_to VARCHAR(1024) DEFAULT '' NOT NULL,
           status VARCHAR(12) DEFAULT '301' NOT NULL,
           type VARCHAR(12) DEFAULT 'url' NOT NULL,
           count mediumint(9) DEFAULT 0 NOT NULL,

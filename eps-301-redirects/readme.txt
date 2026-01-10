@@ -3,7 +3,7 @@ Contributors: WebFactory
 Tags: 301 redirect, redirect, 404 error log, redirection, redirects
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 2.82
+Stable tag: 2.83
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -67,6 +67,11 @@ Install our free <a href="https://wordpress.org/plugins/wp-force-ssl/">WP Force 
 
 
 == Changelog ==
+= 2.83 =
+* 2026/01/09
+* increased maximum URL length to 1024 characters
+* added 'eps_301_redirects_capability' filter to change the capability required to manage redirects. If set to anything other than 'manage_options' 301 Redirects will show under its own menu page instead of under Settings
+
 = 2.82 =
 * 2026/01/03
 * fixed minor user agent detection bug

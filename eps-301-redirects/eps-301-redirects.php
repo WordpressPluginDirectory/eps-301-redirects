@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.82
+Version: 2.83
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
@@ -12,7 +12,7 @@ Tested up to: 6.9
 Requires PHP: 5.2
 License: GPLv2 or later
 
-  Copyright 2015 - 2025  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)
+  Copyright 2015 - 2026  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -127,7 +127,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
   // add widget to dashboard
   function add_widget() {
-    if (current_user_can('manage_options')) {
+    if (current_user_can(apply_filters('eps_301_redirects_capability', 'manage_options'))) {
       add_meta_box('wp301_404_errors', '404 Error Log', array($this, 'widget_content'), 'dashboard', 'side', 'high');
     }
   } // add_widget
@@ -636,7 +636,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
 
       check_ajax_referer('eps_301_save_redirect');
 
-      if (!current_user_can('manage_options')) {
+      if (!current_user_can(apply_filters('eps_301_redirects_capability', 'manage_options'))) {
         wp_die('You are not allowed to run this action.');
       }
 
@@ -858,7 +858,7 @@ if (!defined('WF301_PLUGIN_FILE')) {
     {
       check_ajax_referer('eps_301_delete_entry');
 
-      if (!current_user_can('manage_options')) {
+      if (!current_user_can(apply_filters('eps_301_redirects_capability', 'manage_options'))) {
         wp_die('You are not allowed to run this action.');
       }
 
@@ -914,7 +914,7 @@ public static function ajax_get_inline_edit_entry()
 {
   check_ajax_referer('eps_301_get_inline_edit_entry');
 
-  if (!current_user_can('manage_options')) {
+  if (!current_user_can(apply_filters('eps_301_redirects_capability', 'manage_options'))) {
     wp_die('You are not allowed to run this action.');
   }
 
@@ -936,7 +936,7 @@ public static function ajax_get_entry()
 {
   check_ajax_referer('eps_301_get_entry');
 
-  if (!current_user_can('manage_options')) {
+  if (!current_user_can(apply_filters('eps_301_redirects_capability', 'manage_options'))) {
     wp_die('You are not allowed to run this action.');
   }
 

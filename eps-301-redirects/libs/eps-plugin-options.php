@@ -240,11 +240,13 @@ if (!class_exists('EPS_Redirects_Plugin_Options')) {
     public function add_options_page()
     {
       if (in_array($this->plugin->config('menu_location'), $this->menu_locations)) {
-        $func = sprintf("add_%s_page", $this->plugin->config('menu_location'));
-        return $func($this->plugin->name, $this->plugin->name, $this->plugin->config('page_permission'), $this->plugin->config('page_slug'), array($this, 'do_admin_page'));
+        $capability = apply_filters('eps_301_redirects_capability', 'manage_options');        
+        $location = ($capability == 'manage_options' ? $this->plugin->config('menu_location') : 'menu');
+        $func = sprintf("add_%s_page", $location);
+        return $func($this->plugin->name, $this->plugin->name, apply_filters('eps_301_redirects_capability', 'manage_options'), $this->plugin->config('page_slug'), array($this, 'do_admin_page'));
       } else {
         // TODO proper errors dude.
-        printf('ERROR: menu location "%s" not valid.', esc_attr($this->config['menu_location']));
+        printf('ERROR: menu location "%s" not valid.', esc_attr($this->plugin->config['menu_location']));
       }
       return false;
     }
