@@ -247,7 +247,7 @@ jQuery(document).ready(function($) {
 
     $('#eps-pro-dialog').dialog('open');
 
-    $('#eps-pro-table .button-buy').each(function(ind, el) {
+    $('#eps-pro-table .button-buy, .link-buy').each(function(ind, el) {
       tmp = $(el).data('href-org');
       tmp = tmp.replace('pricing-table', pro_feature);
       $(el).attr('href', tmp);
@@ -266,7 +266,7 @@ jQuery(document).ready(function($) {
       pro_feature = 'unknown';
     }
 
-    $('#eps-pro-table .button-buy').each(function(ind, el) {
+    $('#eps-pro-table .button-buy, .link-buy').each(function(ind, el) {
       tmp = $(el).data('href-org');
       tmp = tmp.replace('pricing-table', pro_feature);
       $(el).attr('href', tmp);
@@ -293,7 +293,16 @@ jQuery(document).ready(function($) {
     closeOnEscape: true,
   });
 
-  if (eps_301.auto_open_pro_dialog) {
+  // show upsell popup every 3 months
+  if (window.localStorage.getItem('wp301_upsell_timestamp') === null ||
+      (new Date().getTime() / 1000 - window.localStorage.getItem('wp301_upsell_timestamp')) > (86400 * 90)) {
+    window.localStorage.setItem('wp301_upsell_timestamp', Math.round(new Date().getTime() / 1000));
+
+    $('#eps-pro-table .button-buy, .link-buy').each(function(ind, el) {
+      tmp = $(el).data('href-org');
+      tmp = tmp.replace('pricing-table', 'welcome');
+      $(el).attr('href', tmp);
+    });
     $('#eps-pro-dialog').dialog('open');
   }
 
@@ -302,12 +311,24 @@ jQuery(document).ready(function($) {
 
     $('#eps-pro-dialog').dialog('open');
 
-    $('#eps-pro-table .button-buy').each(function(ind, el) {
+    $('#eps-pro-table .button-buy, .link-buy').each(function(ind, el) {
       tmp = $(el).data('href-org');
       tmp = tmp.replace('pricing-table', pro_feature);
       $(el).attr('href', tmp);
     });
   };
+
+  $('.install-wpcaptcha').on('click',function(e){
+    if (!confirm('The free WP Advanced Google ReCaptcha plugin will be installed & activated from the official WordPress repository.')) {
+      return;
+    }
+
+    jQuery('body').append('<div style="width:550px;height:450px; position:fixed;top:10%;left:50%;margin-left:-275px; color:#444; background-color: #fbfbfb;border:1px solid #DDD; border-radius:4px;box-shadow: 0px 0px 0px 4000px rgba(0, 0, 0, 0.85);z-index: 9999999;"><iframe src="' + eps_301.wpcaptcha_install_url + '" style="width:100%;height:100%;border:none;" /></div>');
+    jQuery('#wpwrap').css('pointer-events', 'none');
+
+    e.preventDefault();
+    return false;
+  });
 }); // on ready
 
 function eps_fix_dialog_close(event, ui) {
